@@ -6,6 +6,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.swing.text.AbstractDocument;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,69 +18,56 @@ public class ProductsPage extends BasePage {
     public ProductsPage(WebDriver driver) {
         super(driver);
     }
+
     public WebElement productPrice;
     public WebElement orderPrice;
 
-    private WebElement getProduct(){
-        return driver.findElement(By.xpath("//*[@id='product_id_532779150']"));
-    }
-    private WebElement getAddProduct(){
+    private WebElement getAddProduct() {
         return driver.findElement(By.id("add-to-basket"));
     }
-    private WebElement OrderClick(){
+
+    private WebElement OrderClick() {
         return driver.findElement(By.className("dIB"));
     }
-    private WebElement getSearchKey(){
+
+    private WebElement getSearchKey() {
         return driver.findElement(By.xpath("//*[@data-cy='header-search-input']"));
     }
 
-    public void searchKey(String item){
+    public void searchKey(String item) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.cssSelector(".tyj39b-3.gQhGuc"))).click().build().perform();
+
         getSearchKey().sendKeys(item);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
     }
-    public void openPage(){
-        ((JavascriptExecutor)driver).executeScript("window.open()");
+
+    public void openPage() {
+        ((JavascriptExecutor) driver).executeScript("window.open()");
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
         driver.get(Utils.SECOND_URL);
     }
+
     public boolean isLoaded() {
         return wait.until(ExpectedConditions.presenceOfElementLocated(By.className("desktop"))).isDisplayed();
     }
 
-    public void Product() {
+    public void getProduct() throws InterruptedException {
+        WebElement element = driver.findElement(By.id("product_id_635761293"));
         Actions actions = new Actions(driver);
-        actions.moveToElement(getProduct()).click().build().perform();
+        actions.moveToElement(element).click().build().perform();
+        productPrice = driver.findElement(By.id("sp-price-discountPrice"));
+        actions.moveToElement(driver.findElement(By.id("action-buttons"))).click(driver.findElement(By.id("add-to-basket"))).build().perform();
+
+        actions.moveToElement(driver.findElement(By.className("dIB"))).doubleClick().perform();
 
     }
 
-    public void getAddBasket() throws InterruptedException {
-        //productPrice = driver.findElement(By.id("sp-price-lowPrice"));
 
-        getAddProduct().submit();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+ /*   public void compareCost() {
 
-    }
-
-    public void getClickBasket() throws InterruptedException {
-
-        Actions actions = new Actions(driver);
-        actions.moveToElement(OrderClick()).click().build().perform();
-
-
-    }
-      /*  public void compareCost() {
-
-        orderElement = driver.findElement(By.className("dIB"));
-        Actions actions = new Actions(driver);
-        actions.moveToElement(orderElement).doubleClick().build().perform();
-
-        orderPrice = driver.findElement(By.className("total-price"));
-
-
-      Assert.assertEquals(orderPrice.getText(), productPrice.getText());
-      Assert.assertNotEquals(orderPrice.getText(), productPrice.getText());*/
-
+        orderPrice = driver.findElement(By.className("real-discounted-price"));
+    } */
 
 }

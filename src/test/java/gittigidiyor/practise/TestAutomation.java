@@ -36,13 +36,14 @@ public class TestAutomation {
     @Test
     public void ExecuteTest() throws InterruptedException {
         driver.get(Utils.BASE_URL);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         //- www.gittigidiyor.com sitesi açılır
         MainPage mainPage = new MainPage(driver);
         assertTrue(mainPage.isLoaded());
 
         mainPage.goToLogin();
-        //- Ana sayfanın açıldığı kontrol edilir. Siteye login olunur
+        //- Ana sayfanın açıldığı kontrol edilir. Siteye login olunur.
         LoginPage loginPage = new LoginPage(driver);
         loginPage.enterToLogin("helenaghosts@gmail.com","helena96");
         //- Login işlemi kontrol edilir.
@@ -58,26 +59,14 @@ public class TestAutomation {
         //- 2.sayfanın açıldığı kontrol edilir.
         productsPage.openPage();
         assertTrue(productsPage.isLoaded());
-
-        //- Sonuca göre sergilenen ürünlerden rastgele bir ürün seçilir.
-        productsPage.Product();
-
-        //- 2.sayfanın açıldığı kontrol edilir.
-        //- Sonuca göre sergilenen ürünlerden rastgele bir ürün seçilir.
-        productsPage.getAddBasket();
-
-        //- Seçilen ürün sepete eklenir.
-        productsPage.getClickBasket();
-
-
-        //- Ürün sayfasındaki fiyat ile sepette yer alan ürün fiyatının doğruluğu karşılaştırılır.
-        //productsPage.compareCost();
+        productsPage.getProduct();
+      //  productsPage.compareCost();
 
         // Adet arttırılarak ürün adedinin 2 olduğu doğrulanır.
         // Ürün sepetten silinerek sepetin boş olduğu kontrol edilir.
-        OrderPage orderPage = new OrderPage(driver);
-        orderPage.increaseProduct();
-        orderPage.removeProduct();
+         OrderPage orderPage = new OrderPage(driver);
+         orderPage.increaseProduct();
+         orderPage.removeProduct();
         assertTrue(orderPage.isLoaded());
 
 
