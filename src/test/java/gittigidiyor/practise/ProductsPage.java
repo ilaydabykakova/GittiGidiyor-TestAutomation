@@ -53,21 +53,24 @@ public class ProductsPage extends BasePage {
         return wait.until(ExpectedConditions.presenceOfElementLocated(By.className("desktop"))).isDisplayed();
     }
 
-    public void getProduct() throws InterruptedException {
-        WebElement element = driver.findElement(By.id("product_id_635761293"));
+   public void getProduct() {
+        WebElement element = driver.findElement(By.xpath("//*[@product-index]"));
         Actions actions = new Actions(driver);
         actions.moveToElement(element).click().build().perform();
-        productPrice = driver.findElement(By.id("sp-price-discountPrice"));
+
+
+        String productPrice = driver.findElement(By.xpath("//*[@id='sp-price-discountPrice']")).getText();
         actions.moveToElement(driver.findElement(By.id("action-buttons"))).click(driver.findElement(By.id("add-to-basket"))).build().perform();
 
         actions.moveToElement(driver.findElement(By.className("dIB"))).doubleClick().perform();
 
+        String orderPrice = driver.findElement(By.xpath("//*[@class='real-discounted-price']")).getText();
+
+        //Fiyatları kontrol et.
+        Assert.assertEquals("Not Equals !",productPrice,orderPrice);
+
     }
 
 
- /*   public void compareCost() {
-
-        orderPrice = driver.findElement(By.className("real-discounted-price"));
-    } */
 
 }
