@@ -19,16 +19,6 @@ public class ProductsPage extends BasePage {
         super(driver);
     }
 
-    public WebElement productPrice;
-    public WebElement orderPrice;
-
-    private WebElement getAddProduct() {
-        return driver.findElement(By.id("add-to-basket"));
-    }
-
-    private WebElement OrderClick() {
-        return driver.findElement(By.className("dIB"));
-    }
 
     private WebElement getSearchKey() {
         return driver.findElement(By.xpath("//*[@data-cy='header-search-input']"));
