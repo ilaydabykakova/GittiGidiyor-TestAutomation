@@ -27,9 +27,9 @@ public class OrderPage extends BasePage{
     public void increaseProduct() {
 
         getIncrease().click();
-         WebElement option2 = getIncrease().findElement(By.cssSelector("option[value='2']"));
-         option2.click();
-         Assert.assertTrue(option2.isSelected());
+        WebElement option2 = getIncrease().findElement(By.cssSelector("option[value='2']"));
+        option2.click();
+        Assert.assertTrue(option2.isSelected());
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
      }
      public void removeProduct() throws InterruptedException {

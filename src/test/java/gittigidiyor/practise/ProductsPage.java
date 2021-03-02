@@ -66,11 +66,13 @@ public class ProductsPage extends BasePage {
 
         String orderPrice = driver.findElement(By.xpath("//*[@class='real-discounted-price']")).getText();
 
+       driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         //Fiyatları kontrol et.
         Assert.assertEquals("Not Equals !",productPrice,orderPrice);
 
-    }
+       driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 
+    }
 
 
 }

@@ -17,9 +17,7 @@ import static org.junit.Assert.*;
 
 
 public class TestAutomation {
-   WebDriver driver;
-    WebElement element;
-    @FindBy(xpath = "//*[@data-cy='header-user-menu']")
+     WebDriver driver;
     private WebElement login_hover;
     @Before
     public void setup()
@@ -55,19 +53,20 @@ public class TestAutomation {
         productsPage.searchKey("bilgisayar");
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-        // - Arama sonuçları sayfasından 2.sayfa açılır.
+        //- Arama sonuçları sayfasından 2.sayfa açılır.
         //- 2.sayfanın açıldığı kontrol edilir.
         productsPage.openPage();
         assertTrue(productsPage.isLoaded());
+        //- Sonuca göre sergilenen ürünlerden rastgele bir ürün seçilir.
+        //- Ürün sayfasındaki fiyat ile sepette yer alan ürün fiyatının doğruluğu karşılaştırılır.
         productsPage.getProduct();
-      //  productsPage.compareCost();
 
-        // Adet arttırılarak ürün adedinin 2 olduğu doğrulanır.
-        // Ürün sepetten silinerek sepetin boş olduğu kontrol edilir.
+        //- Adet arttırılarak ürün adedinin 2 olduğu doğrulanır.
+        //- Ürün sepetten silinerek sepetin boş olduğu kontrol edilir.
          OrderPage orderPage = new OrderPage(driver);
          orderPage.increaseProduct();
          orderPage.removeProduct();
-        assertTrue(orderPage.isLoaded());
+         assertTrue(orderPage.isLoaded());
 
 
     }
